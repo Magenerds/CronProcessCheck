@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   Magenerds
+ * @package    Magenerds_CronProcessCheck
+ * @author     Mahmood Dhia <m.dhia@techdivision.com>
+ * @copyright  Copyright (c) 2018 TechDivision GmbH (http://www.techdivision.com)
+ * @link       http://www.techdivision.com/
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="cronProcessCheck" xsi:type="object">Magenerds\CronProcessCheck\Console\Command\CronProcessCheckCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Cron\Model\Schedule">
+        <plugin name="cronModelSchedulePlugin" type="Magenerds\CronProcessCheck\Plugin\Model\CronSchedulePlugin" sortOrder="10"/>
+    </type>
+</config>
