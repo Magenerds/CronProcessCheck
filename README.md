@@ -1,5 +1,5 @@
 # CronProcessCheck
-Cron Process check for Magento 2. This Module check if a cronjob process crashed and set the status to error.
+Cron Process check for Magento 2. This modules checks if a cron job process crashed and sets its status to error.
 
 ### Setup
 1. Install `Magenerds/CronProcessCheck` Module
