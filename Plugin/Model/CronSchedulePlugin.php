@@ -35,7 +35,7 @@ class CronSchedulePlugin
      */
     public function afterTryLockJob(Schedule $subject, $canLock)
     {
-        if($canLock) {
+        if ($canLock) {
             $subject->setPid(getmypid());
         }
 
@@ -52,7 +52,7 @@ class CronSchedulePlugin
      */
     public function beforeSetData(Schedule $subject, $key, $value = null)
     {
-        if($key === 'status' && $value !== Schedule::STATUS_RUNNING) {
+        if ($key === 'status' && $value !== Schedule::STATUS_RUNNING) {
             $subject->setPid(NULL);
         }
     }

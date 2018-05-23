@@ -40,9 +40,10 @@ class CronProcessCheckCommand extends Command
      *
      * @param ScheduleFactory $scheduleFactory
      */
-    public function __construct (
+    public function __construct(
         ScheduleFactory $scheduleFactory
-    ){
+    )
+    {
         $this->scheduleFactory = $scheduleFactory;
         parent::__construct();
     }
@@ -70,15 +71,17 @@ class CronProcessCheckCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $cronList = $this->scheduleFactory->create()->getCollection()
-            ->addFieldToFilter( 'status', Schedule::STATUS_RUNNING)
-            ->addFieldToFilter( 'pid', ['neq' => 'NULL'])
+            ->addFieldToFilter('status', Schedule::STATUS_RUNNING)
+            ->addFieldToFilter('pid', ['neq' => 'NULL'])
             ->load();
 
         $cleanCount = 0;
 
         /** @var Schedule $cron */
         foreach ($cronList as $cron) {
-            if(posix_getpgid($cron->getPid()) === false) {
+            if ((function_exists('posix_getpgid') && posix_getpgid($cron->getPid()) === false) // try to use POSIX (Portable Operating System Interface)
+                || file_exists('/proc/' . $cron->getPid()) === false // check process pid in /proc/ folder
+            ) {
                 $cleanCount++;
                 $cron->setMessages(sprintf('Magenerds_CronProcessCheck: Process (PID: %s) is gone', $cron->getPid()));
                 $cron->setStatus(Schedule::STATUS_ERROR);
