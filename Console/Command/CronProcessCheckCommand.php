@@ -78,7 +78,10 @@ class CronProcessCheckCommand extends Command
 
         /** @var Schedule $cron */
         foreach ($cronList as $cron) {
-            if(posix_getpgid($cron->getPid()) === false) {
+            if(
+                (function_exists('posix_getpgid') && posix_getpgid($cron->getPid()) === false) || // try to use POSIX (Portable Operating System Interface)
+                file_exists('/proc/'. $cron->getPid()) === false) // check process pid in /proc/ folder
+            {
                 $cleanCount++;
                 $cron->setMessages(sprintf('Magenerds_CronProcessCheck: Process (PID: %s) is gone', $cron->getPid()));
                 $cron->setStatus(Schedule::STATUS_ERROR);
