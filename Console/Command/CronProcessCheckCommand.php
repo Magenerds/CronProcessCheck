@@ -53,8 +53,8 @@ class CronProcessCheckCommand extends Command
      */
     public function configure()
     {
-        $this->setName('magenerds:cronprocess:check');
-        $this->setDescription('Check running cronjobs');
+        $this->setName('magenerds:cronprocess:clear');
+        $this->setDescription('Set the status of crashed cronjobs to error');
 
         parent::configure();
     }

@@ -41,19 +41,4 @@ class CronSchedulePlugin
 
         return $canLock;
     }
-
-    /**
-     * Remove PID if status is not running
-     *
-     * @param Schedule $subject
-     * @param $key
-     * @param $value
-     * @return void
-     */
-    public function beforeSetData(Schedule $subject, $key, $value = null)
-    {
-        if ($key === 'status' && $value !== Schedule::STATUS_RUNNING) {
-            $subject->setPid(NULL);
-        }
-    }
 }
