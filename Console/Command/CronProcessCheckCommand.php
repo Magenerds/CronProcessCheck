@@ -68,7 +68,7 @@ class CronProcessCheckCommand extends Command
      * @return null|int null or 0 if everything went fine, or an error code
      * @throws \Exception
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $cronList = $this->scheduleFactory->create()->getCollection()
             ->addFieldToFilter('status', Schedule::STATUS_RUNNING)
@@ -90,6 +90,6 @@ class CronProcessCheckCommand extends Command
         }
 
         $output->writeln(sprintf('Cleaned %s cronjobs', $cleanCount));
-        return true;
+        return 0;
     }
 }
