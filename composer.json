@@ -2,6 +2,7 @@
   "name": "magenerds/cronprocesscheck",
   "description": "Cron Process check for Magento 2. This modules checks if a cron job process crashed and sets its status to error.",
   "require": {
+    "php": "^7.0|^8.1",
     "magento/framework": "^100.0.0|^101.0.0|^102.0.0|^103.0.0",
     "magenerds/dashboard": "^1.0"
   },
@@ -19,6 +20,11 @@
     ],
     "psr-4": {
       "Magenerds\\CronProcessCheck\\": ""
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "magento/composer-dependency-version-audit-plugin": true
     }
   }
 }
